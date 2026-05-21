@@ -1,0 +1,33 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "meeting-intelligence",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-05-18",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".open-next/assets"
+	},
+	"d1_databases": [
+		{
+			"binding": "MY_DB",
+			"database_name": "meeting-intelligence",
+			"database_id": "ff79ba38-e613-4a03-8e7a-1f01be20dfe5"
+		},
+		
+	],
+	"kv_namespaces": [
+		{
+			"binding": "MEETING_TOKENS",
+			"id": "c6924f4513dd4d11b919cfad7d46dde0"
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"observability": {
+		"enabled": true
+	}
+}

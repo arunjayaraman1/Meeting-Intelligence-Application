@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/microsoft/callback/route": "app/api/auth/microsoft/callback/route.js",
+  "/api/auth/microsoft/route": "app/api/auth/microsoft/route.js",
+  "/api/dashboard/route": "app/api/dashboard/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js"
+}
