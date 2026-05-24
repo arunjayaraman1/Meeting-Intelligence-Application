@@ -15,8 +15,7 @@
 			"binding": "MY_DB",
 			"database_name": "meeting-intelligence",
 			"database_id": "ff79ba38-e613-4a03-8e7a-1f01be20dfe5"
-		},
-		
+		}
 	],
 	"kv_namespaces": [
 		{

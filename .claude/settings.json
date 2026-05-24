@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:montemagno.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:blog.jcoglan.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:www.filefusion.app)"
+    ]
+  }
+}

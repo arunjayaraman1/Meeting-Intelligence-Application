@@ -1,5 +1,6 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getUserByEmail, createUser, updateUserTokens } from "@/lib/db";
+import { setSessionCookie } from "@/lib/session";
 
 interface EnvWithSecrets extends CloudflareEnv {
     MICROSOFT_CLIENT_ID: string;
@@ -28,14 +29,16 @@ export async function GET(request: Request) {
         );
     }
     // Exchange authorization code for tokens
-   const tokenResponse = await fetch(`https://login.microsoftonline.com/${env.MICROSOFT_TENANT_ID}/oauth2/v2.0/token`, {
+    const tokenResponse = await fetch(`https://login.microsoftonline.com/${env.MICROSOFT_TENANT_ID}/oauth2/v2.0/token`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
             client_id: env.MICROSOFT_CLIENT_ID,
             client_secret: env.MICROSOFT_CLIENT_SECRET,
             code: code,
-            redirect_uri: "http://localhost:3000/api/auth/microsoft/callback",
+
+            redirect_uri: `${request.headers.get("x-forwarded-proto") || "http"}://${request.headers.get("x-forwarded-host") || request.headers.get("host") || "localhost:3000"}/api/auth/microsoft/callback`,
+
             grant_type: "authorization_code",
         }),
     });
@@ -82,6 +85,14 @@ export async function GET(request: Request) {
             expires_at: expiresAt,
         })
     );
-    // Redirect to dashboard
-    return Response.redirect("http://localhost:3000/dashboard");
+    // Redirect to dashboard with session cookie
+    const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "localhost:3000";
+    const protocol = request.headers.get("x-forwarded-proto") || "http";
+    return new Response(null, {
+        status: 302,
+        headers: {
+            "Location": `${protocol}://${host}/dashboard`,
+            "Set-Cookie": setSessionCookie(userId),
+        },
+    });
 }
